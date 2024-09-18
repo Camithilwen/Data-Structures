@@ -31,3 +31,6 @@ while True:
       fileObj.close()        
       break
    print(myList)
+   
+   #function takes user's phone number
+   def userPhone():
