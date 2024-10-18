@@ -41,12 +41,101 @@ class LinkedList:
             current_node = current_node.next
         print("None")
 
+    def delete(self): #delete from the beginning of the list
+        #time complexity O(1)
+        #if the list is empty
+        if self.head is None:
+            return
+        
+        #otherwise, head -> next should revise to head->next
+        self.head = self.head.next
+        return
+
+    def pop(self): #remove from the end of the list
+        if self.head is None:
+            return
+        if self.head.next is None:
+            self.head = None
+            return
+        probe = self.head
+        while probe.next.next is not None:
+            probe = probe.next
+        probe.next = None
+        return
+
+    def __len__(self): #return the number of elements in the list
+        if self.head is None:
+            return 0
+        count = 1 
+        probe = self.head
+        while probe.next is not None:
+            count += 1
+            probe = probe.next
+        return count
+
+    def indexOf(self, data):
+        pass
+
+    def copy(self):
+        pass
+
+    def __str__(self):
+        if self.head is None:
+            return "None"
+        probe = self.head
+        strBuf = ""
+        while probe.next is not None:
+            strBuf = strBuf + str(probe.data) + " -> "
+            probe = probe.next
+        strBuf = strBuf + "None"
+        return strBuf
+    
+    def __add__(self, other): #append all nodes in the other list to current
+        if other.head is None:
+            return self
+        if self.head is None:
+            return other
+        probe = self.head
+        while probe.next:
+            probe = probe.next
+        probe.next = other.head
+        return self 
+        
+    def __eq__(self, other):
+        if len(self) != len(other):
+            return False
+        #Else iterate through two lists and for each node, compare its data
+        #whenever you get unmatched data, return False.
+        #If all data match and we reach the end of both lists, return True.
+        probe1 = self.head
+        probe2 = other.head
+        
+        while probe1:
+            pass #to be finished
+        return True
+
 #Sample usage to test
 myLinkedList = LinkedList()
+print(myLinkedList)
 myLinkedList.append(1)
 myLinkedList.append(2)
 myLinkedList.append(3)
 myLinkedList.append(4)
-myLinkedList.print_list()
+print(myLinkedList)
+print("Length: ", len(myLinkedList))
 myLinkedList.insert(5)
-myLinkedList.print_list()
+print(myLinkedList)
+myLinkedList.delete()
+print(myLinkedList)
+myLinkedList.pop()
+print(myLinkedList)
+print("Length: ", len(myLinkedList))
+
+
+list2 = LinkedList()
+for number in range(1, 12):
+    list2.append(number)
+print(list2)
+list3 = myLinkedList + list2
+print(list3)
+print("Length: ", len(list3))
