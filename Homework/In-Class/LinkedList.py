@@ -91,15 +91,17 @@ class LinkedList:
         return strBuf
     
     def __add__(self, other): #append all nodes in the other list to current
-        if other.head is None:
-            return self
-        if self.head is None:
-            return other
-        probe = self.head
+        self_copy = self.copy()
+        other_copy = other.copy()
+        if other_copy.head is None:
+            return self_copy
+        if self_copy.head is None:
+            return other_copy
+        probe = self_copy.head
         while probe.next:
             probe = probe.next
-        probe.next = other.head
-        return self 
+        probe.next = other_copy.head
+        return self_copy
         
     def __eq__(self, other):
         if len(self) != len(other):
@@ -113,29 +115,57 @@ class LinkedList:
         while probe1:
             pass #to be finished
         return True
+    
+    def copy(self):
+        #This is how to implement a true duplicate of a linked structure:
+        if self.head is None:
+            return None
+        
+        probe = self.head
+        copyList = LinkedList()
+        prevNode = Node(probe.data, None)
+
+        copyList.head = prevNode 
+
+        probe = probe.next
+
+        while probe is not None:
+            copy = Node(probe.data, None)
+            prevNode.next = copy
+            prevNode = copy
+            probe = probe.next
+        return copyList
+
+
+
+            
 
 #Sample usage to test
 myLinkedList = LinkedList()
-print(myLinkedList)
+#print(myLinkedList)
 myLinkedList.append(1)
 myLinkedList.append(2)
 myLinkedList.append(3)
 myLinkedList.append(4)
-print(myLinkedList)
-print("Length: ", len(myLinkedList))
+#print(myLinkedList)
+#print("Length: ", len(myLinkedList))
 myLinkedList.insert(5)
-print(myLinkedList)
+#print(myLinkedList)
 myLinkedList.delete()
-print(myLinkedList)
+#print(myLinkedList)
 myLinkedList.pop()
-print(myLinkedList)
-print("Length: ", len(myLinkedList))
+#print(myLinkedList)
+#print("Length: ", len(myLinkedList))
 
 
 list2 = LinkedList()
 for number in range(1, 12):
     list2.append(number)
-print(list2)
-list3 = myLinkedList + list2
-print(list3)
-print("Length: ", len(list3))
+print("List 2:", list2)
+print("List 1 before copy-add:", myLinkedList)
+copy1 = myLinkedList.copy()
+copy2 = list2.copy()
+list3 = copy1 + copy2 
+print("List 1 after copy-add:", myLinkedList)
+print("List 3:", list3)
+#print("Length list 3:", len(list3))
