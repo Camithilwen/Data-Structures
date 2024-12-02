@@ -1,0 +1,6 @@
+1. If the tree isn't empty:
+    2. visit the left subtree
+        * step 1
+    3. visit the item at the root of the tree
+    4. visit the right subtree
+        * step 1
