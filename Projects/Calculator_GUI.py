@@ -2,7 +2,7 @@
 import tkinter as tk
 import tkinter.messagebox
 from tkinter.constants import SUNKEN
-from calc import Postfix
+from calc import *
 
 window = tk.Tk()
 window.title('Calculator-GeeksForGeeks')
@@ -33,10 +33,10 @@ def equal():
 def my_evaluator_stack(expr):
     #process the expression string using the Stack data structure
     #and return the evaluation result.
-    calculator = Postfix(expr)
-    calculator.calc()
-    result = str(calculator.stack[0])
-    return result
+    calculator = Process(expr)
+    calculator.inToPostfix()
+    result = calculator.calc()
+    return str(result)
 
 ####end of change
 
@@ -85,7 +85,7 @@ button_subtract = tk.Button(
 button_subtract.grid(row=5, column=1, pady=2)
 
 button_multiply = tk.Button(
-    master=frame, text="*", padx=15, pady=5, width=3, command=lambda: myclick('*'))
+    master=frame, text="×", padx=15, pady=5, width=3, command=lambda: myclick('×'))
 button_multiply.grid(row=5, column=2, pady=2)
 
 button_div = tk.Button(master=frame, text="/", padx=15,
